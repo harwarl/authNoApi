@@ -7,7 +7,21 @@ const User = require('../models/user');
 // }
 exports.postLogin = (req, res, next) =>{
     const { email, password } = req.body;
-
+    User.findOne({email: email})
+    .then(user=>{
+        if(!user) return res.status(400).json({message: "Email not registered, signup instead"});
+        bcrypt.compare(password, user.password)
+        .then(result =>{
+            if(!result) return res.status(400).json({message: "Incorrect Password"});
+            req.session.user = user;
+            req.session.isLoggedIn = true;
+            req.session.save((err)=>{
+                if(err) return res.status(400).json({message: err});
+                return res.status(200).json({message: req.session});
+            })
+        })
+    })
+    .catch(err=>console.log(err));
     
 }
 // exports.getSignUp = (req, res, next) =>{
