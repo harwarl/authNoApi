@@ -4,6 +4,7 @@
     <h1>logged IN</h1>
     <% if(isAuthenticated){%>
         <form action="/logout" method="post">
+            <input type="hidden" name="_csrf" value="<%=csrfToken%>">
             <button type="submit">logout</button>
         </form>
     <%} else {%> 
