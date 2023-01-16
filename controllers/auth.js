@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
+
 exports.getLogin = (req, res, next) =>{
     res.render('auth/login', {
         pageTitle: 'Login',
@@ -19,7 +20,11 @@ exports.postLogin = (req, res, next) =>{
         }
         bcrypt.compare(password, user.password)
         .then(result =>{
-            if(!result) return res.status(400).json({message: "Incorrect Password"});
+            if(!result) {
+                // return res.status(400).json({message: "Incorrect Password"});
+                req.flash('error', 'Incorrect password');
+                return res.redirect('/login');
+            }
             req.session.user = user;
             req.session.isLoggedIn = true;
             req.session.save((err)=>{
@@ -68,8 +73,8 @@ exports.postSignUp = (req, res, next) =>{
 }
 
 exports.postLogout = (req, res, next) =>{
-    res.session.destroy(err=>{
+    req.session.destroy(err=>{
         console.log(err);
-        //redirect to page
+        res.redirect('/login');
     })
 }

@@ -16,5 +16,12 @@
         </div>
         <button type="submit">Login</button>
     </form>
-    <a href="/signup">Signup</a>
+    <% if(isAuthenticated){%>
+        <form action="/logout" method="post">
+            <button type="submit">logout</button>
+        </form>
+    <%} else {%> 
+        <a href="/signup">Signup</a>
+        <a href="/login">Login</a>
+    <%}%>
     <%- include('../includes/foot.ejs')%>

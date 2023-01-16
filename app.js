@@ -41,6 +41,11 @@ app.use((req, res, next)=>{
     .catch(err=>console.log(err));
 });
 
+app.use((req, res, next)=>{
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    next();
+});
+
 strapIndex(app);
 
 mongoose.connect(MONGO_URI)

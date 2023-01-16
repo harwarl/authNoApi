@@ -1,0 +1,13 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+    <h1>logged IN</h1>
+    <% if(isAuthenticated){%>
+        <form action="/logout" method="post">
+            <button type="submit">logout</button>
+        </form>
+    <%} else {%> 
+        <a href="/signup">Signup</a>
+        <a href="/login">Login</a>
+    <%}%>
+    <%- include('../includes/foot.ejs') %>
