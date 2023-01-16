@@ -2,6 +2,9 @@
 </head>
 <body>
     <h1>SignUp Page</h1>
+    <% if(error){%>
+        <p><%=error%></p>
+    <%}%>
     <form action="/signup" method="post">
         <div>
             <label for="email">Email</label>
@@ -17,4 +20,5 @@
         </div>
         <button type="submit">Submit</button>
     </form>
+    <a href="/login">Login</a>
     <%- include('../includes/foot.ejs')%>
