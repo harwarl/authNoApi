@@ -37,8 +37,8 @@ exports.postSignUp = (req, res, next) =>{
     .then(user =>{
         if(user) return res.status(400).json({message: "Email already exists, login instead"});
         if(password !== confirmpassword) {
-            return res.redirect('/signup');
-            // return res.status(400).json({message: "password do not match"});
+            // return res.redirect('/signup');
+            return res.status(400).json({message: "password do not match"});
         }
         bcrypt.hash(password, 10)
         .then(hashedPassword =>{
@@ -49,8 +49,8 @@ exports.postSignUp = (req, res, next) =>{
             return user.save();    
         })
         .then(user=>{
-            res.redirect('/login');
-            // res.status(200).json({message: user});
+            // res.redirect('/login');
+            res.status(200).json({message: user});
         })
     })
     .catch(err=>console.log(err));

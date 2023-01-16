@@ -6,7 +6,7 @@ const User = require('./models/user');
 const MONGO_URI = "mongodb://127.0.0.1:27017/authS";
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
-const authroute = require('./routes/auth');
+const strapIndex = require('./routes/index');
 
 app.use(express.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -23,7 +23,6 @@ app.use(session({
     secret: 'my secret cat',
     resave: false,
     saveUninitialized: true,
-    cookie: {secure: true},
     store: store
 }));
 
@@ -39,7 +38,7 @@ app.use((req, res, next)=>{
     .catch(err=>console.log(err));
 });
 
-app.use(authroute);
+strapIndex(app);
 
 mongoose.connect(MONGO_URI)
 .then((result)=>{
