@@ -1,0 +1,16 @@
+<%- include('../includes/head.ejs') %>
+</head>
+<body>
+    <h1>Reset Password</h1>
+    <% if(error){%>
+        <p><%=error%></p>
+    <%}%>
+    <form action="/reset" method="post">
+        <div>
+            <label for="email">Email</label>
+            <input type="text" id="email" name="email" >
+        </div>
+        <input type="hidden" name="_csrf" value="<%=csrfToken%>">
+        <button type="submit">Reset</button>
+    </form>
+    <%- include('../includes/foot.ejs')%>
